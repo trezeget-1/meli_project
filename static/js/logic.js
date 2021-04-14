@@ -16,6 +16,13 @@ let street_map = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y
 	attribution: '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
+let Jawg_Dark = L.tileLayer(`https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token=${jawg_api_key}`, {
+	attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	minZoom: 0,
+	maxZoom: 22,
+	subdomains: 'abcd',
+	accessToken: jawg_api_key
+});
 
 
 // Create our number formatter.
@@ -126,9 +133,10 @@ var mymap = L.map("mapid", {
   
 // Only one base layer can be shown at a time
 var baseMaps = {
-  Satellite: satellite_layer,
+  'Satellite': satellite_layer,
   'Basic Street': outdoor_layer,
-  'Detailed Street': street_map
+  'Detailed Street': street_map,
+  'Dark city': Jawg_Dark
 };
 
 
