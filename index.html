@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    
+
+  <!-- Our CSS -->
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+</head>
+
+<body>
+
+
+    <!-- <script charset="utf-16" src="static/data/ML_departamento_en_venta_Del_valle.json"></script> -->
+    <script charset="utf-16" src="static/data/ML_departamentos_CDMX.json"></script>
+    <!-- <script charset="utf-16" src="static/data/mx_tj.json"></script> -->
+
+    <!-- D3 JavaScript -->
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.js"></script> -->
+
+    <!-- The div that holds our map -->
+        <div id="mapid"></div>
+
+    <!-- Our JavaScript -->
+        <script src="static/js/config.js"></script>
+        <!-- <script src="static/js/mexican_municipalities.js"></script> -->
+        <script type="text/javascript" src="static/js/logic.js"></script>
+        <script src="static/js/TEST.js"></script>
+
+</body>
+</html>
