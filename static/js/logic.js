@@ -40,6 +40,8 @@ var formatter = new Intl.NumberFormat('en-MX', {
 d3.json("static/data/ML_departamentos_CDMX.json")
 .then(data=>{
 
+casa_data = data.filter(d => d['Tipo de propiedad'] === 'Casa')
+depto_data = data.filter(d => d['Tipo de propiedad'] === 'Departamento')
 
 console.log(data)
 
@@ -107,12 +109,6 @@ properties_markers.push(
       }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(properties_list[i][5])} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(properties_list[i][2])} </h2> <br> <h2>${properties_list[i][4]} m2 <br><br> <a href= ${properties_list[i][3]} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
     )
   }
-
-
-// data.forEach( d => {
-//   // console.log(d)
-//   console.log(d['Precio por m2'], markerSize(d['Número de m2']))
-// })
 
 
   // Add all the cityMarkers to a new layer group.
