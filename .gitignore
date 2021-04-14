@@ -1,4 +1,5 @@
 project_meli workspace.code-workspace
+config.js
 csv_files/**
 .vscode/**
 
