@@ -1,6 +1,7 @@
 project_meli workspace.code-workspace
 config.js
 csv_files/**
+REFERENCE_ONLY/**
 .vscode/**
 
 # Byte-compiled / optimized / DLL files
