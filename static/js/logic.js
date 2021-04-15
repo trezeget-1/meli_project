@@ -36,34 +36,61 @@ var formatter = new Intl.NumberFormat('en-MX', {
 });
 
 
+// let houses_search = d3.select('#house_option')
+// let apartments_search = d3.select('#apartment_option')
+// let everything_search = d3.select('#all_places_option')
 
-d3.json("static/data/ML_departamentos_CDMX.json")
-.then(data=>{
+// let search_type = 'Casa'
 
-casa_data = data.filter(d => d['Tipo de propiedad'] === 'Casa')
-depto_data = data.filter(d => d['Tipo de propiedad'] === 'Departamento')
 
-console.log(data)
+// houses_search.on("click", function(){
+//   var search_type = houses_search.property("value");
+//   console.log(search_type)
+//   create_map(search_type)
+// })
 
-    let properties_list = []
-    let studied_array = []
+// apartments_search.on("click", function(){
+//   var search_type = apartments_search.property("value");
+//   console.log(search_type)
+//   create_map(search_type)
+// })
 
+// everything_search.on("click", function(){
+//   var search_type = everything_search.property("value");
+//   console.log(search_type)
+//   create_map(search_type)
+// })
+
+
+
+
+// function create_map(search_type){
+
+// let search_type = 'Casa'
+
+d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
+
+  let studied_array = []
+
+  data.forEach( d=> {
     
-    data.forEach(d=>{
+    studied_array.push(
+      d['Precio por m2']
+      )
+      
+  })
 
-        properties_list.push(
-            [d.Latitud, d.Longitud,
-              d['Precio por m2'], d['Link de la publicación'],
-              d['Número de m2'], d['Precio']]
-            )
 
-          studied_array.push(
-          d['Precio por m2']
-          )
+// if (search_type != 'all_info'){
+//   data = data.filter(d => d['Tipo de propiedad'] === search_type)
+// }else{
 
-        })
-    
-console.log(properties_list)
+// }
+
+// console.log(data)
+
+  
+// console.log(properties_list)
 
 function markerSize(price_per_m2) {
     return price_per_m2/1300;
@@ -91,54 +118,88 @@ function markerSize(price_per_m2) {
   }
 
 
+// ------------------------------ HOUSES LIST --------------------------------
 
-let properties_markers = []
 
-for (let i=0, n=properties_list.length; i<n; i++){
+let filtered_data = data.filter(d => d['Tipo de propiedad'] === 'Casa')
 
-properties_markers.push(
-    L.circle([properties_list[i][0],properties_list[i][1]], {
-        fillOpacity: .8,
-        color: "black",
-        weight: 1,
-        fillColor: fillColor(properties_list[i][4]),
-            
-        // Setting our circle's radius equal to the output of our markerSize function
-        // This will make our marker's size proportionate to its population
-        radius: markerSize(properties_list[i][2])
-      }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(properties_list[i][5])} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(properties_list[i][2])} </h2> <br> <h2>${properties_list[i][4]} m2 <br><br> <a href= ${properties_list[i][3]} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
+function markers_creation(filtered_data){
+
+  let properties_list = []
+
+  
+  for (let i=0, n=filtered_data.length; i<n; i++){
+  
+
+    properties_list.push(
+      [filtered_data[i]['Latitud'], filtered_data[i]['Longitud'],
+      filtered_data[i]['Precio por m2'], filtered_data[i]['Link de la publicación'],
+      filtered_data[i]['Número de m2'], filtered_data[i]['Precio']]
     )
+    
   }
+  
+    let properties_markers = []
+
+  for (let i=0, n=properties_list.length; i<n; i++){
+
+    properties_markers.push(
+        L.circle([properties_list[i][0],properties_list[i][1]], {
+            fillOpacity: .8,
+            color: "black",
+            weight: 1,
+            fillColor: fillColor(properties_list[i][4]),
+                
+            // Setting our circle's radius equal to the output of our markerSize function
+            // This will make our marker's size proportionate to its population
+            radius: markerSize(properties_list[i][2])
+          }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(properties_list[i][5])} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(properties_list[i][2])} </h2> <br> <h2>${properties_list[i][4]} m2 <br><br> <a href= ${properties_list[i][3]} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
+        )
+      }
+
+      return properties_markers
+}
 
 
-  // Add all the cityMarkers to a new layer group.
+// Add all the cityMarkers to a new layer group.
 // Now we can handle them as one group instead of referencing each individually
-let propertiesLayer = L.layerGroup(properties_markers);
+let housesLayer = L.layerGroup(markers_creation(filtered_data));
 
 
+// // ------------------------------ APARTMENTS LIST --------------------------------
+
+filtered_data = data.filter(d => d['Tipo de propiedad'] === 'Departamento')
+
+let apartmentLayer = L.layerGroup(markers_creation(filtered_data));
+
+
+
+
+// // ------------------------------ MAP CREATION --------------------------------
 
 
 // Create map object and set default layers
 var mymap = L.map("mapid", {
-    center: [19.38351531103225, -99.16814160192048],
+    center: [19.432773407864026, -99.13334959469503],
     zoom: 15,
-    layers: [street_map, propertiesLayer]
+    layers: [outdoor_layer, apartmentLayer]
   });
 
  
   
 // Only one base layer can be shown at a time
 var baseMaps = {
-  'Satellite': satellite_layer,
   'Basic Street': outdoor_layer,
-  'Detailed Street': street_map,
-  'Dark city': Jawg_Dark
+  'Dark city': Jawg_Dark,
+  'Satellite': satellite_layer,
+  'Detailed Street': street_map
 };
 
 
 // Overlays that may be toggled on or off
 var overlayMaps = {
-  Properties: propertiesLayer
+  "Apartments": apartmentLayer,
+  "Houses": housesLayer,
 };
 
 
@@ -195,15 +256,18 @@ quantiles_actual_array.forEach( d => {
   quantiles_array_formatted.push(formatter.format(d)) //logs 1123355.5
 })
 
-  function getRadius(r) {
-    return  r >= quantiles_list[3] ? markerSize(quantiles_list[3])*25 :
-            r >= quantiles_list[2] ? markerSize(quantiles_list[2])*25 :
-            r >= quantiles_list[1] ? markerSize(quantiles_list[1])*25 :
-            r >= quantiles_list[0] ? markerSize(quantiles_list[0])*25 : 0;
-    }
 
-  /*Legend specific*/
-  var legend = new L.control({ position: "bottomright" });
+/*Legend specific*/
+var legend = new L.control({ position: "bottomright" });
+
+function getRadius(r) {
+  let radius_reference = 20
+
+  return  r >= quantiles_list[3] ? markerSize(quantiles_list[3])*radius_reference :
+          r >= quantiles_list[2] ? markerSize(quantiles_list[2])*radius_reference :
+          r >= quantiles_list[1] ? markerSize(quantiles_list[1])*radius_reference :
+          r >= quantiles_list[0] ? markerSize(quantiles_list[0])*radius_reference : 0;
+  }
 
   legend.onAdd = function(map) {
   
@@ -243,3 +307,7 @@ div.innerHTML += labels.join('<br>');
 .catch(e=>{
     console.log(e)
 })
+
+
+
+// create_map(search_type)
