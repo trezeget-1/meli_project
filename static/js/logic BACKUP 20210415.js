@@ -79,12 +79,11 @@ function markerSize(price_per_m2) {
 
 
 let filtered_data = data.filter(d => d['Tipo de propiedad'] === 'Casa')
-console.log(filtered_data)
-
 
 function markers_creation(filtered_data){
 
   let properties_list = []
+
   
   for (let i=0, n=filtered_data.length; i<n; i++){
   
@@ -118,28 +117,6 @@ function markers_creation(filtered_data){
       return properties_markers
 }
 
-// ---- 
-
-function heat_map(filtered_data){
-
-  let heatArray = []
-
-filtered_data.forEach(d=>{
-        heatArray.push(
-            [d.Latitud, d.Longitud]
-        )
-    })
-
-let heat_map_layer = L.heatLayer(heatArray, {
-  radius: 40,
-  blur: 0  
-})
-
-return heat_map_layer
-}
-
-let houses_heatLayer = heat_map(filtered_data)
-
 
 // Add all the cityMarkers to a new layer group.
 // Now we can handle them as one group instead of referencing each individually
@@ -152,7 +129,7 @@ filtered_data = data.filter(d => d['Tipo de propiedad'] === 'Departamento')
 
 let apartmentLayer = L.layerGroup(markers_creation(filtered_data));
 
-let apartment_heatLayer = heat_map(filtered_data)
+
 
 
 // // ------------------------------ MAP CREATION --------------------------------
@@ -175,12 +152,17 @@ var baseMaps = {
   'Detailed Street': street_map
 };
 
+
+
+
+
+
+
+
 // Overlays that may be toggled on or off
 var overlayMaps = {
   "Apartments": apartmentLayer,
-  "Apartments_Heatmap": apartment_heatLayer,
   "Houses": housesLayer,
-  "Houses_Heatmap": houses_heatLayer,
 };
 
 
