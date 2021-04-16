@@ -38,36 +38,93 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
 d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
 
-  let studied_array = []
-
-  data.forEach( d=> {
-    
-    studied_array.push(
-      d['Precio por m2']
-      )
-      
-  })
-
-
-function markerSize(price_per_m2) {
-    return price_per_m2/1300;
+function markerSize(amount_of_m2) {
+    return amount_of_m2/5;
   }
 
 
+  let studied_array = []
+
+  data.forEach( d=> {    
+    studied_array.push(
+      d['Precio por m2']
+      )      
+  }) 
+
+  let amount_of_shares_desired = 7
+
+  let quantiles_ranges = []
+  for (let i=1, n=amount_of_shares_desired; i<n; i++){
+      quantiles_ranges.push(i/7)
+  }
+
+  function quantile_definition(quantiles_ranges){
+
+      
+      // THIS IS TO OBTAIN THE QUARTILES FOR THE ARRAY M2
+      
+        // sort array ascending
+        const asc = studied_array.sort((a, b) => a - b);
+      
+        const sum = studied_array.reduce((a, b) => a + b, 0);
+      
+        const mean = sum / studied_array.length;
+      
+      
+        // sample standard deviation
+        const std = (studied_array) => {
+            const mu = mean(studied_array);
+            const diffArr = studied_array.map(a => (a - mu) ** 2);
+            return Math.sqrt(sum(diffArr) / (studied_array.length - 1));
+        };
+      
+        const quantile = (studied_array, q) => {
+            const sorted = asc;
+            const pos = (sorted.length - 1) * q;
+            const base = Math.floor(pos);
+            const rest = pos - base;
+            if (sorted[base + 1] !== undefined) {
+                return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
+            } else {
+                return sorted[base];
+            }
+        };
+      
+      let quantiles_actual_array = []
+      
+      quantiles_ranges.forEach( d => {
+          
+          quantiles_actual_array.push( quantile(studied_array, d) )
+      })
+      
+      return quantiles_actual_array
+
+  }
+
+  let price_per_m2_quantiles = quantile_definition(quantiles_ranges)
+
+  formatted_price_per_m2_quantiles = []
+
+  price_per_m2_quantiles.forEach(d=>{
+    formatted_price_per_m2_quantiles.push(formatter.format(d))
+  })
+
+  console.log(formatted_price_per_m2_quantiles)
+
   let color = ""
 
-  function fillColor(amount_of_m2) {
-    if (amount_of_m2 <= 70){
+  function fillColor(price_per_m2) {
+    if (price_per_m2 <= price_per_m2_quantiles[0]){
       color = "#DE0C04"
-    }else if (amount_of_m2 <= 100){
+    }else if (price_per_m2 <= price_per_m2_quantiles[1]){
       color = "#FF9900"
-    }else if (amount_of_m2 <= 130){
+    }else if (price_per_m2 <= price_per_m2_quantiles[2]){
       color = "#FFF200"
-    }else if (amount_of_m2 <= 180){
+    }else if (price_per_m2 <= price_per_m2_quantiles[3]){
         color = "#11FF00"
-    }else if (amount_of_m2 <= 230){
+    }else if (price_per_m2 <= price_per_m2_quantiles[4]){
         color = "#0088F0"
-    }else if (amount_of_m2 > 230){
+    }else if (price_per_m2 > price_per_m2_quantiles[5]){
         color = "#6800F0"
     }
     
@@ -106,11 +163,11 @@ function markers_creation(filtered_data){
             fillOpacity: .8,
             color: "black",
             weight: 1,
-            fillColor: fillColor(properties_list[i][4]),
+            fillColor: fillColor(properties_list[i][2]),
                 
             // Setting our circle's radius equal to the output of our markerSize function
             // This will make our marker's size proportionate to its population
-            radius: markerSize(properties_list[i][2])
+            radius: markerSize(properties_list[i][4])
           }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(properties_list[i][5])} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(properties_list[i][2])} </h2> <br> <h2>${properties_list[i][4]} m2 <br><br> <a href= ${properties_list[i][3]} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
         )
       }
@@ -134,7 +191,7 @@ filtered_data.forEach(d=>{
     })
 
 let heat_map_layer = L.heatLayer(heatArray, {
-  radius: 40,
+  radius: 50,
   blur: 0  
 })
 
@@ -169,7 +226,7 @@ function markers_cluster(filtered_data){
               
           // Setting our circle's radius equal to the output of our markerSize function
           // This will make our marker's size proportionate to its population
-          radius: markerSize(d['Precio por m2'])
+          radius: markerSize(d['Número de m2'])
         }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(d.Precio)} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(d['Precio por m2'])} </h2> <br> <h2>${d['Número de m2']} m2 <br><br> <a href= ${d['Link de la publicación']} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
       )
   })
@@ -203,15 +260,15 @@ let apartments_cluster = markers_cluster(filtered_data)
 var mymap = L.map("mapid", {
     center: [19.432773407864026, -99.13334959469503],
     zoom: 15,
-    layers: [outdoor_layer, apartmentLayer]
+    layers: [Jawg_Dark, apartmentLayer]
   });
 
  
   
 // Only one base layer can be shown at a time
 var baseMaps = {
-  'Basic Street': outdoor_layer,
   'Dark city': Jawg_Dark,
+  'Basic Street': outdoor_layer,
   'Satellite': satellite_layer,
   'Detailed Street': street_map
 };
@@ -234,87 +291,55 @@ var overlayMaps = {
 
 
 
-// THIS IS TO OBTAIN THE QUARTILES FOR THE ARRAY M2
+  studied_array = []
 
-  // sort array ascending
-  const asc = studied_array.sort((a, b) => a - b);
-
-  const sum = studied_array.reduce((a, b) => a + b, 0);
-
-  const mean = sum / studied_array.length;
-
-
-  // sample standard deviation
-  const std = (studied_array) => {
-      const mu = mean(studied_array);
-      const diffArr = studied_array.map(a => (a - mu) ** 2);
-      return Math.sqrt(sum(diffArr) / (studied_array.length - 1));
-  };
-
-  const quantile = (studied_array, q) => {
-      const sorted = asc;
-      const pos = (sorted.length - 1) * q;
-      const base = Math.floor(pos);
-      const rest = pos - base;
-      if (sorted[base + 1] !== undefined) {
-          return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
-      } else {
-          return sorted[base];
-      }
-  };
-
-let quantiles_ranges = [.20, .25, .5, .75];
-let quantiles_list = []
-let quantiles_actual_array = []
-
-quantiles_ranges.forEach( d => {
+  data.forEach( d=> {
     
-    quantiles_actual_array.push( quantile(studied_array, d) )
-    quantiles_list.push( quantile(studied_array, d)/100 )
-})
+    studied_array.push(
+      d['Número de m2']
+      )
+      
+  })
+
+  quantiles_ranges = [.20, .25, .5, .75];
 
 
-let quantiles_array_formatted = []
-
-quantiles_actual_array.forEach( d => {
-  quantiles_array_formatted.push(formatter.format(d)) //logs 1123355.5
-})
-
+  let quantiles_actual_array = quantile_definition(quantiles_ranges)
 
 /*Legend specific*/
 var legend = new L.control({ position: "bottomright" });
 
 function getRadius(r) {
-  let radius_reference = 20
+  let radius_reference = .3
 
-  return  r >= quantiles_list[3] ? markerSize(quantiles_list[3])*radius_reference :
-          r >= quantiles_list[2] ? markerSize(quantiles_list[2])*radius_reference :
-          r >= quantiles_list[1] ? markerSize(quantiles_list[1])*radius_reference :
-          r >= quantiles_list[0] ? markerSize(quantiles_list[0])*radius_reference : 0;
+  return  r >= quantiles_actual_array[3] ? markerSize(quantiles_actual_array[3])*radius_reference :
+          r >= quantiles_actual_array[2] ? markerSize(quantiles_actual_array[2])*radius_reference :
+          r >= quantiles_actual_array[1] ? markerSize(quantiles_actual_array[1])*radius_reference :
+          r >= quantiles_actual_array[0] ? markerSize(quantiles_actual_array[0])*radius_reference : 0;
   }
 
   legend.onAdd = function(map) {
   
   var div = L.DomUtil.create("div", "legend");
-    div.innerHTML += "<h2>Size</h2>";
-    div.innerHTML += '<i style="background:#DE0C04"></i><span>Less than 70 m2</span><br>';
-    div.innerHTML += '<i style="background: #FF9900"></i><span>70 to 100 m2</span><br>';
-    div.innerHTML += '<i style="background: #FFF200"></i><span>100 to 130 m2</span><br>';
-    div.innerHTML += '<i style="background: #11FF00"></i><span>130 to 180 m2</span><br>';
-    div.innerHTML += '<i style="background: #0088F0"></i><span>180 to 230 m2</span><br>';
-    div.innerHTML += '<i style="background: #6800F0"></i><span>More than 230 m2</span><br>';
+    div.innerHTML += "<h2>Price per m²</h2>";
+    div.innerHTML += `<i style="background:#DE0C04"></i><span>Less than ${formatted_price_per_m2_quantiles[0]}</span><br>`;
+    div.innerHTML += `<i style="background: #FF9900"></i><span>${formatted_price_per_m2_quantiles[0]} to ${formatted_price_per_m2_quantiles[1]}</span><br>`;
+    div.innerHTML += `<i style="background: #FFF200"></i><span>${formatted_price_per_m2_quantiles[1]} to ${formatted_price_per_m2_quantiles[2]}</span><br>`;
+    div.innerHTML += `<i style="background: #11FF00"></i><span>${formatted_price_per_m2_quantiles[2]} to ${formatted_price_per_m2_quantiles[3]}</span><br>`;
+    div.innerHTML += `<i style="background: #0088F0"></i><span>${formatted_price_per_m2_quantiles[3]} to ${formatted_price_per_m2_quantiles[4]}</span><br>`;
+    div.innerHTML += `<i style="background: #6800F0"></i><span>More than ${formatted_price_per_m2_quantiles[5]}</span><br>`;
     
-    div.innerHTML += "<h2>Price per m2</h2>";
-    grades = quantiles_list,
+    div.innerHTML += "<h2>Property Size</h2>";
+    grades = quantiles_actual_array,
     labels = []
-    categories = quantiles_array_formatted;
+    categories = quantiles_actual_array;
    
 
 
     for (var i = 0; i < grades.length; i++) {
       var grade = grades[i];//*0.5;
  labels.push(
-      '<i class="circlepadding" style="width: '+Math.max(8,(getRadius(grade)))+'px;"></i> <i style="background: #8080A0; width: '+getRadius(grade)*2+'px; height: '+getRadius(grade)*2+'px; border-radius: 50%; margin-top: '+Math.max(0,(9-getRadius(grade)))+'px;"></i>' + '<span>' + categories[i] + '</span>');
+      '<i class="circlepadding" style="width: '+Math.max(8,(getRadius(grade)))+'px;"></i> <i style="background: #8080A0; width: '+getRadius(grade)*2+'px; height: '+getRadius(grade)*2+'px; border-radius: 50%; margin-top: '+Math.max(0,(9-getRadius(grade)))+'px;"></i>' + '<span>' + categories[i] + ' m²' +'</span>');
  }
 div.innerHTML += labels.join('<br>');
 
