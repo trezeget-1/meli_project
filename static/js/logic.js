@@ -36,38 +36,6 @@ var formatter = new Intl.NumberFormat('en-MX', {
 });
 
 
-// let houses_search = d3.select('#house_option')
-// let apartments_search = d3.select('#apartment_option')
-// let everything_search = d3.select('#all_places_option')
-
-// let search_type = 'Casa'
-
-
-// houses_search.on("click", function(){
-//   var search_type = houses_search.property("value");
-//   console.log(search_type)
-//   create_map(search_type)
-// })
-
-// apartments_search.on("click", function(){
-//   var search_type = apartments_search.property("value");
-//   console.log(search_type)
-//   create_map(search_type)
-// })
-
-// everything_search.on("click", function(){
-//   var search_type = everything_search.property("value");
-//   console.log(search_type)
-//   create_map(search_type)
-// })
-
-
-
-
-// function create_map(search_type){
-
-// let search_type = 'Casa'
-
 d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
 
   let studied_array = []
@@ -80,17 +48,6 @@ d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
       
   })
 
-
-// if (search_type != 'all_info'){
-//   data = data.filter(d => d['Tipo de propiedad'] === search_type)
-// }else{
-
-// }
-
-// console.log(data)
-
-  
-// console.log(properties_list)
 
 function markerSize(price_per_m2) {
     return price_per_m2/1300;
@@ -310,4 +267,3 @@ div.innerHTML += labels.join('<br>');
 
 
 
-// create_map(search_type)
