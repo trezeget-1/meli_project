@@ -168,7 +168,10 @@ function markers_creation(filtered_data){
             // Setting our circle's radius equal to the output of our markerSize function
             // This will make our marker's size proportionate to its population
             radius: markerSize(properties_list[i][4])
-          }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(properties_list[i][5])} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(properties_list[i][2])} </h2> <br> <h2>${properties_list[i][4]} m2 <br><br> <a href= ${properties_list[i][3]} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
+          }).bindPopup(`<h4>Price: </h4><p class="fs-5">${formatter.format(properties_list[i][5])}</p><br>
+          <h4>Price per m²: </h4><p class="fs-5">${formatter.format(properties_list[i][2])} </p> <br>
+          <h4>Size: </h4><p class="fs-5">${properties_list[i][4]} m² </p><br>
+          <h5><a href= ${properties_list[i][3]} target="_blank" > Check out this property </a> </h5>`)
         )
       }
 
@@ -192,7 +195,7 @@ filtered_data.forEach(d=>{
 
 let heat_map_layer = L.heatLayer(heatArray, {
   radius: 50,
-  blur: 0  
+  blur: 10  
 })
 
 return heat_map_layer
@@ -200,42 +203,42 @@ return heat_map_layer
 
 let houses_heatLayer = heat_map(filtered_data)
 
-/**This is the function to create cluster of markers
- * 
- * @param {*} filtered_data 
- * @returns {*} Cluster Markers
- */
+// /**This is the function to create cluster of markers
+//  * 
+//  * @param {*} filtered_data 
+//  * @returns {*} Cluster Markers
+//  */
 
-function markers_cluster(filtered_data){
+// function markers_cluster(filtered_data){
 
-  let markers = L.markerClusterGroup();
+//   let markers = L.markerClusterGroup();
 
-  // filtered_data.forEach(d=>{
-  //     markers.addLayer(
-  //       L.marker([d.Latitud, d.Longitud])
-  //       )
-  // })
+//   // filtered_data.forEach(d=>{
+//   //     markers.addLayer(
+//   //       L.marker([d.Latitud, d.Longitud])
+//   //       )
+//   // })
 
-  filtered_data.forEach(d=>{
-      markers.addLayer(
-        L.circle([d.Latitud, d.Longitud], {
-          fillOpacity: .8,
-          color: "black",
-          weight: 1,
-          fillColor: fillColor(d['Número de m2']),
+//   filtered_data.forEach(d=>{
+//       markers.addLayer(
+//         L.circle([d.Latitud, d.Longitud], {
+//           fillOpacity: .8,
+//           color: "black",
+//           weight: 1,
+//           fillColor: fillColor(d['Número de m2']),
               
-          // Setting our circle's radius equal to the output of our markerSize function
-          // This will make our marker's size proportionate to its population
-          radius: markerSize(d['Número de m2'])
-        }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(d.Precio)} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(d['Precio por m2'])} </h2> <br> <h2>${d['Número de m2']} m2 <br><br> <a href= ${d['Link de la publicación']} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
-      )
-  })
+//           // Setting our circle's radius equal to the output of our markerSize function
+//           // This will make our marker's size proportionate to its population
+//           radius: markerSize(d['Número de m2'])
+//         }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(d.Precio)} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(d['Precio por m2'])} </h2> <br> <h2>${d['Número de m2']} m2 <br><br> <a href= ${d['Link de la publicación']} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
+//       )
+//   })
 
 
-  return markers
-}
+//   return markers
+// }
 
-let houses_cluster = markers_cluster(filtered_data)
+// let houses_cluster = markers_cluster(filtered_data)
 
 
 // Add all the cityMarkers to a new layer group.
@@ -251,7 +254,7 @@ let apartmentLayer = L.layerGroup(markers_creation(filtered_data));
 
 let apartment_heatLayer = heat_map(filtered_data)
 
-let apartments_cluster = markers_cluster(filtered_data)
+// let apartments_cluster = markers_cluster(filtered_data)
 
 // // ------------------------------ MAP CREATION --------------------------------
 
@@ -260,15 +263,15 @@ let apartments_cluster = markers_cluster(filtered_data)
 var mymap = L.map("mapid", {
     center: [19.432773407864026, -99.13334959469503],
     zoom: 15,
-    layers: [Jawg_Dark, apartmentLayer]
+    layers: [outdoor_layer, apartmentLayer, apartment_heatLayer]
   });
 
  
   
 // Only one base layer can be shown at a time
 var baseMaps = {
-  'Dark city': Jawg_Dark,
   'Basic Street': outdoor_layer,
+  'Dark city': Jawg_Dark,
   'Satellite': satellite_layer,
   'Detailed Street': street_map
 };
@@ -277,10 +280,10 @@ var baseMaps = {
 var overlayMaps = {
   "Apartments": apartmentLayer,
   "Apartments Heatmap": apartment_heatLayer,
-  "Apartments Cluster" : apartments_cluster,
+  // "Apartments Cluster" : apartments_cluster,
   "Houses": housesLayer,
   "Houses Heatmap": houses_heatLayer,
-  "Houses Cluster" : houses_cluster,
+  // "Houses Cluster" : houses_cluster,
 };
 
 
@@ -321,7 +324,7 @@ function getRadius(r) {
   legend.onAdd = function(map) {
   
   var div = L.DomUtil.create("div", "legend");
-    div.innerHTML += "<h2>Price per m²</h2>";
+    div.innerHTML += "<h3>Price per m²</h3>";
     div.innerHTML += `<i style="background:#DE0C04"></i><span>Less than ${formatted_price_per_m2_quantiles[0]}</span><br>`;
     div.innerHTML += `<i style="background: #FF9900"></i><span>${formatted_price_per_m2_quantiles[0]} to ${formatted_price_per_m2_quantiles[1]}</span><br>`;
     div.innerHTML += `<i style="background: #FFF200"></i><span>${formatted_price_per_m2_quantiles[1]} to ${formatted_price_per_m2_quantiles[2]}</span><br>`;
@@ -329,7 +332,8 @@ function getRadius(r) {
     div.innerHTML += `<i style="background: #0088F0"></i><span>${formatted_price_per_m2_quantiles[3]} to ${formatted_price_per_m2_quantiles[4]}</span><br>`;
     div.innerHTML += `<i style="background: #6800F0"></i><span>More than ${formatted_price_per_m2_quantiles[5]}</span><br>`;
     
-    div.innerHTML += "<h2>Property Size</h2>";
+    div.innerHTML += "<br>";
+    div.innerHTML += "<h3>Property Size</h3>";
     grades = quantiles_actual_array,
     labels = []
     categories = quantiles_actual_array;
