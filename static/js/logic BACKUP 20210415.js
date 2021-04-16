@@ -79,11 +79,12 @@ function markerSize(price_per_m2) {
 
 
 let filtered_data = data.filter(d => d['Tipo de propiedad'] === 'Casa')
+console.log(filtered_data)
+
 
 function markers_creation(filtered_data){
 
   let properties_list = []
-
   
   for (let i=0, n=filtered_data.length; i<n; i++){
   
@@ -117,6 +118,68 @@ function markers_creation(filtered_data){
       return properties_markers
 }
 
+/** This function is to create a heat map based on the filtered data from either houses or apartments 
+ * @param filtered_data
+ * @returns heat_map_layer
+ **/
+
+function heat_map(filtered_data){
+
+  let heatArray = []
+
+filtered_data.forEach(d=>{
+        heatArray.push(
+            [d.Latitud, d.Longitud]
+        )
+    })
+
+let heat_map_layer = L.heatLayer(heatArray, {
+  radius: 40,
+  blur: 0  
+})
+
+return heat_map_layer
+}
+
+let houses_heatLayer = heat_map(filtered_data)
+
+/**This is the function to create cluster of markers
+ * 
+ * @param {*} filtered_data 
+ * @returns {*} Cluster Markers
+ */
+
+function markers_cluster(filtered_data){
+
+  let markers = L.markerClusterGroup();
+
+  // filtered_data.forEach(d=>{
+  //     markers.addLayer(
+  //       L.marker([d.Latitud, d.Longitud])
+  //       )
+  // })
+
+  filtered_data.forEach(d=>{
+      markers.addLayer(
+        L.circle([d.Latitud, d.Longitud], {
+          fillOpacity: .8,
+          color: "black",
+          weight: 1,
+          fillColor: fillColor(d['Número de m2']),
+              
+          // Setting our circle's radius equal to the output of our markerSize function
+          // This will make our marker's size proportionate to its population
+          radius: markerSize(d['Precio por m2'])
+        }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(d.Precio)} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(d['Precio por m2'])} </h2> <br> <h2>${d['Número de m2']} m2 <br><br> <a href= ${d['Link de la publicación']} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
+      )
+  })
+
+
+  return markers
+}
+
+let houses_cluster = markers_cluster(filtered_data)
+
 
 // Add all the cityMarkers to a new layer group.
 // Now we can handle them as one group instead of referencing each individually
@@ -129,8 +192,9 @@ filtered_data = data.filter(d => d['Tipo de propiedad'] === 'Departamento')
 
 let apartmentLayer = L.layerGroup(markers_creation(filtered_data));
 
+let apartment_heatLayer = heat_map(filtered_data)
 
-
+let apartments_cluster = markers_cluster(filtered_data)
 
 // // ------------------------------ MAP CREATION --------------------------------
 
@@ -152,17 +216,14 @@ var baseMaps = {
   'Detailed Street': street_map
 };
 
-
-
-
-
-
-
-
 // Overlays that may be toggled on or off
 var overlayMaps = {
   "Apartments": apartmentLayer,
+  "Apartments Heatmap": apartment_heatLayer,
+  "Apartments Cluster" : apartments_cluster,
   "Houses": housesLayer,
+  "Houses Heatmap": houses_heatLayer,
+  "Houses Cluster" : houses_cluster,
 };
 
 
@@ -261,8 +322,6 @@ div.innerHTML += labels.join('<br>');
   };
   
   legend.addTo(mymap);
-
-
 
 
 })
