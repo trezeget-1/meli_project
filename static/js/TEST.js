@@ -15,9 +15,13 @@ d3.json("static/data/ML_departamentos_CDMX.json")
 
     let quantiles_ranges = []
 
+    quantiles_ranges.push((1/7)/2)
+
     for (let i=1, n=amount_of_shares_desired; i<n; i++){
         quantiles_ranges.push(i/7)
     }
+
+    console.log(quantiles_ranges)
 
     function quantile_definition(quantiles_ranges){
 
