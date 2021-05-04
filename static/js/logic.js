@@ -7,19 +7,19 @@ let satellite_layer = L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{
 
 
 let outdoor_layer = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
-	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+  attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 });
 
 
 let street_map = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-	maxZoom: 20,
+	// maxZoom: 20,
 	attribution: '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
 let Jawg_Dark = L.tileLayer(`https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token=${jawg_api_key}`, {
 	attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	minZoom: 0,
-	maxZoom: 22,
+	// maxZoom: 22,
 	subdomains: 'abcd',
 	accessToken: jawg_api_key
 });
@@ -56,7 +56,16 @@ function markerSize(amount_of_m2) {
 
   let quantiles_ranges = []
   for (let i=1, n=amount_of_shares_desired; i<n; i++){
-      quantiles_ranges.push(i/7)
+
+    // if (i ===1 ){
+    //   quantiles_ranges.push((i/7)/2)
+    //   quantiles_ranges.push(i/7)
+    // }else{
+    //   quantiles_ranges.push(i/7)
+    // }
+
+    quantiles_ranges.push(i/7)
+
   }
 
   function quantile_definition(quantiles_ranges){
@@ -127,8 +136,9 @@ function markerSize(amount_of_m2) {
         color = "#0088F0"
     }else if (price_per_m2 > price_per_m2_quantiles[5]){
         color = "#6800F0"
+    }else if (price_per_m2 > price_per_m2_quantiles[6]){
+      color = "#000000"
     }
-    
     return color;
   }
 
@@ -331,7 +341,8 @@ function getRadius(r) {
     div.innerHTML += `<i style="background: #FFF200"></i><span>${formatted_price_per_m2_quantiles[1]} to ${formatted_price_per_m2_quantiles[2]}</span><br>`;
     div.innerHTML += `<i style="background: #11FF00"></i><span>${formatted_price_per_m2_quantiles[2]} to ${formatted_price_per_m2_quantiles[3]}</span><br>`;
     div.innerHTML += `<i style="background: #0088F0"></i><span>${formatted_price_per_m2_quantiles[3]} to ${formatted_price_per_m2_quantiles[4]}</span><br>`;
-    div.innerHTML += `<i style="background: #6800F0"></i><span>More than ${formatted_price_per_m2_quantiles[5]}</span><br>`;
+    div.innerHTML += `<i style="background: #6800F0"></i><span>${formatted_price_per_m2_quantiles[4]} to ${formatted_price_per_m2_quantiles[5]}</span><br>`;
+    div.innerHTML += `<i style="background: #000000"></i><span>More than ${formatted_price_per_m2_quantiles[5]}</span><br>`;
     
     div.innerHTML += "<br>";
     div.innerHTML += "<h3>Property Size</h3>";
