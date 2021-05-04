@@ -36,7 +36,8 @@ var formatter = new Intl.NumberFormat('en-MX', {
 });
 
 
-d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
+// d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
+d3.json("static/data/inmuebles_24_CDMX.json").then(data=>{
 
 function markerSize(amount_of_m2) {
     return amount_of_m2/5;
