@@ -40,7 +40,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
 d3.json("static/data/inmuebles_24_CDMX.json").then(shuju=>{
 
 function markerSize(amount_of_m2) {
-    return amount_of_m2/5;
+    return amount_of_m2*.2;
   }
 
 
@@ -252,6 +252,7 @@ let houses_heatLayer = heat_map(filtered_data)
 // let houses_cluster = markers_cluster(filtered_data)
 
 
+
 // Add all the cityMarkers to a new layer group.
 // Now we can handle them as one group instead of referencing each individually
 let housesLayer = L.layerGroup(markers_creation(filtered_data));
@@ -273,7 +274,7 @@ let apartment_heatLayer = heat_map(filtered_data)
 // Create map object and set default layers
 var mymap = L.map("mapid", {
     center: [19.432773407864026, -99.13334959469503],
-    zoom: 15,
+    zoom: 16,
     layers: [outdoor_layer, apartmentLayer, apartment_heatLayer]
   });
 
@@ -315,7 +316,7 @@ var overlayMaps = {
       
   })
 
-  quantiles_ranges = [.20, .25, .5, .75];
+  quantiles_ranges = [.20, .35, .5, .75];
 
 
   let quantiles_actual_array = quantile_definition(quantiles_ranges)
@@ -324,15 +325,36 @@ var overlayMaps = {
 var legend = new L.control({ position: "bottomright" });
 
 function getRadius(r) {
-  let radius_reference = .3
+  let radius_reference = .42
 
-  return  r >= quantiles_actual_array[3] ? markerSize(quantiles_actual_array[3])*radius_reference :
-          r >= quantiles_actual_array[2] ? markerSize(quantiles_actual_array[2])*radius_reference :
-          r >= quantiles_actual_array[1] ? markerSize(quantiles_actual_array[1])*radius_reference :
-          r >= quantiles_actual_array[0] ? markerSize(quantiles_actual_array[0])*radius_reference : 0;
+  return  r >= quantiles_actual_array[3] ? markerSize(quantiles_actual_array[3]*radius_reference) :
+          r >= quantiles_actual_array[2] ? markerSize(quantiles_actual_array[2]*radius_reference) :
+          r >= quantiles_actual_array[1] ? markerSize(quantiles_actual_array[1]*radius_reference) :
+          r >= quantiles_actual_array[0] ? markerSize(quantiles_actual_array[0]*radius_reference) : 0;
   }
 
+
+
+    var control = new L.Control({position:'topright'});
+
+    control.onAdd = function(map) {
+        var azoom = L.DomUtil.create('a','resetzoom');
+        azoom.innerHTML = "[Reset Map]";
+        L.DomEvent
+          .disableClickPropagation(azoom)
+          .addListener(azoom, 'click', function() {
+            map.setView(map.options.center, map.options.zoom);
+          },azoom);
+        return azoom;
+      };
+
+      
+      control.addTo(mymap);
+
+
   legend.onAdd = function(map) {
+
+    console.log(map)
   
   var div = L.DomUtil.create("div", "legend");
     div.innerHTML += "<h3>Price per m²</h3>";
@@ -363,6 +385,9 @@ div.innerHTML += labels.join('<br>');
   };
   
   legend.addTo(mymap);
+
+
+  
 
 
 })

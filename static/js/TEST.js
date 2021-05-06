@@ -21,7 +21,7 @@ d3.json("static/data/ML_departamentos_CDMX.json")
         quantiles_ranges.push(i/7)
     }
 
-    console.log(quantiles_ranges)
+    // console.log(quantiles_ranges)
 
     function quantile_definition(quantiles_ranges){
 
