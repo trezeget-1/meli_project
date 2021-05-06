@@ -37,7 +37,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
 
 // d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
-d3.json("static/data/inmuebles_24_CDMX.json").then(data=>{
+d3.json("static/data/inmuebles_24_CDMX.json").then(shuju=>{
 
 function markerSize(amount_of_m2) {
     return amount_of_m2/5;
@@ -46,7 +46,7 @@ function markerSize(amount_of_m2) {
 
   let studied_array = []
 
-  data.forEach( d=> {    
+  shuju.forEach( d=> {    
     studied_array.push(
       d['Precio por m2']
       )      
@@ -146,7 +146,7 @@ function markerSize(amount_of_m2) {
 // ------------------------------ HOUSES LIST --------------------------------
 
 
-let filtered_data = data.filter(d => d['Tipo de propiedad'] === 'Casa')
+let filtered_data = shuju.filter(d => d['Tipo de propiedad'] === 'Casa')
 console.log(filtered_data)
 
 
@@ -259,7 +259,7 @@ let housesLayer = L.layerGroup(markers_creation(filtered_data));
 
 // // ------------------------------ APARTMENTS LIST --------------------------------
 
-filtered_data = data.filter(d => d['Tipo de propiedad'] === 'Departamento')
+filtered_data = shuju.filter(d => d['Tipo de propiedad'] === 'Departamento')
 
 let apartmentLayer = L.layerGroup(markers_creation(filtered_data));
 
@@ -307,7 +307,7 @@ var overlayMaps = {
 
   studied_array = []
 
-  data.forEach( d=> {
+  shuju.forEach( d=> {
     
     studied_array.push(
       d['Número de m2']
