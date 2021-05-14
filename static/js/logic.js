@@ -366,6 +366,7 @@ d3.json("static/data/ML_departamentos_CDMX.json").then(shuju=>{
 
 })
 
+
 .catch(e=>{
     console.log(e)
 })
