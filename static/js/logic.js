@@ -1,3 +1,5 @@
+function map_creation(shuju, map_id_name){
+
 // Define variables for our tile layers
 let satellite_layer = L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${API_KEY}`, {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -35,11 +37,8 @@ var formatter = new Intl.NumberFormat('en-MX', {
   maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 
-
-// d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
-d3.json("static/data/inmuebles_24_CDMX.json").then(shuju=>{
-
-function markerSize(amount_of_m2) {
+      
+  function markerSize(amount_of_m2) {
     return amount_of_m2*.2;
   }
 
@@ -143,19 +142,19 @@ function markerSize(amount_of_m2) {
   }
 
 
-// ------------------------------ HOUSES LIST --------------------------------
+  // ------------------------------ HOUSES LIST --------------------------------
 
 
-let filtered_data = shuju.filter(d => d['Tipo de propiedad'] === 'Casa')
-console.log(filtered_data)
+  let filtered_data = shuju.filter(d => d['Tipo de propiedad'] === 'Casa')
+  console.log(filtered_data)
 
 
-function markers_creation(filtered_data){
+  function markers_creation(filtered_data){
 
   let properties_list = []
-  
+
   for (let i=0, n=filtered_data.length; i<n; i++){
-  
+
 
     properties_list.push(
       [filtered_data[i]['Latitud'], filtered_data[i]['Longitud'],
@@ -164,7 +163,7 @@ function markers_creation(filtered_data){
     )
     
   }
-  
+
     let properties_markers = []
 
   for (let i=0, n=properties_list.length; i<n; i++){
@@ -187,122 +186,85 @@ function markers_creation(filtered_data){
       }
 
       return properties_markers
-}
+  }
 
-/** This function is to create a heat map based on the filtered data from either houses or apartments 
- * @param filtered_data
- * @returns heat_map_layer
- **/
+  /** This function is to create a heat map based on the filtered data from either houses or apartments 
+  * @param filtered_data
+  * @returns heat_map_layer
+  **/
 
-function heat_map(filtered_data){
+  function heat_map(filtered_data){
 
   let heatArray = []
 
-filtered_data.forEach(d=>{
+  filtered_data.forEach(d=>{
         heatArray.push(
             [d.Latitud, d.Longitud]
         )
     })
 
-let heat_map_layer = L.heatLayer(heatArray, {
+  let heat_map_layer = L.heatLayer(heatArray, {
   radius: 50,
   blur: 10  
-})
+  })
 
-return heat_map_layer
-}
+  return heat_map_layer
+  }
 
-let houses_heatLayer = heat_map(filtered_data)
+  let houses_heatLayer = heat_map(filtered_data)
+  // let houses_heatLayer = setTimeout(function(){
+  //   heat_map(filtered_data);
+  // },500)
 
-// /**This is the function to create cluster of markers
-//  * 
-//  * @param {*} filtered_data 
-//  * @returns {*} Cluster Markers
-//  */
-
-// function markers_cluster(filtered_data){
-
-//   let markers = L.markerClusterGroup();
-
-//   // filtered_data.forEach(d=>{
-//   //     markers.addLayer(
-//   //       L.marker([d.Latitud, d.Longitud])
-//   //       )
-//   // })
-
-//   filtered_data.forEach(d=>{
-//       markers.addLayer(
-//         L.circle([d.Latitud, d.Longitud], {
-//           fillOpacity: .8,
-//           color: "black",
-//           weight: 1,
-//           fillColor: fillColor(d['Número de m2']),
-              
-//           // Setting our circle's radius equal to the output of our markerSize function
-//           // This will make our marker's size proportionate to its population
-//           radius: markerSize(d['Número de m2'])
-//         }).bindPopup(`<h2>Precio de la propiedad: ${formatter.format(d.Precio)} </h2> <br> <h2>Precio por m2: <br> ${formatter.format(d['Precio por m2'])} </h2> <br> <h2>${d['Número de m2']} m2 <br><br> <a href= ${d['Link de la publicación']} target="_blank" > ANUNCIO DE ESTA PROPIEDAD </a> </h2>`)
-//       )
-//   })
+  // Add all the cityMarkers to a new layer group.
+  // Now we can handle them as one group instead of referencing each individually
+  let housesLayer = L.layerGroup(markers_creation(filtered_data));
 
 
-//   return markers
-// }
+  // // ------------------------------ APARTMENTS LIST --------------------------------
 
-// let houses_cluster = markers_cluster(filtered_data)
+  filtered_data = shuju.filter(d => d['Tipo de propiedad'] === 'Departamento')
 
+  let apartmentLayer = L.layerGroup(markers_creation(filtered_data));
 
+  let apartment_heatLayer = heat_map(filtered_data)
+  // let apartment_heatLayer = setTimeout(function(){
+  //   heat_map(filtered_data);
+  // },500)
 
-// Add all the cityMarkers to a new layer group.
-// Now we can handle them as one group instead of referencing each individually
-let housesLayer = L.layerGroup(markers_creation(filtered_data));
-
-
-// // ------------------------------ APARTMENTS LIST --------------------------------
-
-filtered_data = shuju.filter(d => d['Tipo de propiedad'] === 'Departamento')
-
-let apartmentLayer = L.layerGroup(markers_creation(filtered_data));
-
-let apartment_heatLayer = heat_map(filtered_data)
-
-// let apartments_cluster = markers_cluster(filtered_data)
-
-// // ------------------------------ MAP CREATION --------------------------------
+  // // ------------------------------ MAP CREATION --------------------------------
 
 
-// Create map object and set default layers
-var mymap = L.map("mapid", {
+  // Create map object and set default layers
+  var mymap = L.map(map_id_name, {
     center: [19.432773407864026, -99.13334959469503],
     zoom: 16,
     layers: [outdoor_layer, apartmentLayer, apartment_heatLayer]
   });
 
- 
-  
-// Only one base layer can be shown at a time
-var baseMaps = {
+
+
+  // Only one base layer can be shown at a time
+  var baseMaps = {
   'Basic Street': outdoor_layer,
   'Dark city': Jawg_Dark,
   'Satellite': satellite_layer,
   'Detailed Street': street_map
-};
+  };
 
-// Overlays that may be toggled on or off
-var overlayMaps = {
+  // Overlays that may be toggled on or off
+  var overlayMaps = {
   "Apartments": apartmentLayer,
   "Apartments Heatmap": apartment_heatLayer,
-  // "Apartments Cluster" : apartments_cluster,
   "Houses": housesLayer,
   "Houses Heatmap": houses_heatLayer,
-  // "Houses Cluster" : houses_cluster,
-};
+  };
 
 
   // Pass our map layers into our layer control
   // Add the layer control to the map
   L.control.layers(baseMaps, overlayMaps,{collapsed:false}).addTo(mymap);
-  
+
 
 
 
@@ -321,10 +283,10 @@ var overlayMaps = {
 
   let quantiles_actual_array = quantile_definition(quantiles_ranges)
 
-/*Legend specific*/
-var legend = new L.control({ position: "bottomright" });
+  /*Legend specific*/
+  var legend = new L.control({ position: "bottomright" });
 
-function getRadius(r) {
+  function getRadius(r) {
   let radius_reference = .42
 
   return  r >= quantiles_actual_array[3] ? markerSize(quantiles_actual_array[3]*radius_reference) :
@@ -355,7 +317,7 @@ function getRadius(r) {
   legend.onAdd = function(map) {
 
     console.log(map)
-  
+
   var div = L.DomUtil.create("div", "legend");
     div.innerHTML += "<h3>Price per m²</h3>";
     div.innerHTML += `<i style="background:#DE0C04"></i><span>Less than ${formatted_price_per_m2_quantiles[0]}</span><br>`;
@@ -371,24 +333,36 @@ function getRadius(r) {
     grades = quantiles_actual_array,
     labels = []
     categories = quantiles_actual_array;
-   
+  
 
 
     for (var i = 0; i < grades.length; i++) {
       var grade = grades[i];//*0.5;
- labels.push(
+  labels.push(
       '<i class="circlepadding" style="width: '+Math.max(8,(getRadius(grade)))+'px;"></i> <i style="background: #8080A0; width: '+getRadius(grade)*2+'px; height: '+getRadius(grade)*2+'px; border-radius: 50%; margin-top: '+Math.max(0,(9-getRadius(grade)))+'px;"></i>' + '<span>' + categories[i] + ' m²' +'</span>');
- }
-div.innerHTML += labels.join('<br>');
+  }
+  div.innerHTML += labels.join('<br>');
 
     return div;
   };
-  
+
   legend.addTo(mymap);
 
+    }
 
+
+// d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
+d3.json("static/data/inmuebles_24_CDMX.json").then(shuju=>{
   
+  map_id_name = 'mapid'
+  map_creation(shuju, map_id_name)
 
+})
+
+d3.json("static/data/ML_departamentos_CDMX.json").then(shuju=>{
+
+  map_id_name = 'Melimapid'
+  map_creation(shuju, map_id_name)
 
 })
 
