@@ -1,6 +1,8 @@
 project_meli workspace.code-workspace
 config.js
 csv_files/**
+09_ciudaddemexico/**
+bootcamp/**
 REFERENCE_ONLY/**
 .vscode/**
 
