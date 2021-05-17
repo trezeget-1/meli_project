@@ -118,7 +118,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
     formatted_price_per_m2_quantiles.push(formatter.format(d))
   })
 
-  console.log(formatted_price_per_m2_quantiles)
+  // console.log(formatted_price_per_m2_quantiles)
 
   let color = ""
 
@@ -146,7 +146,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
 
   let filtered_data = shuju.filter(d => d['Tipo de propiedad'] === 'Casa')
-  console.log(filtered_data)
+  // console.log(filtered_data)
 
 
   function markers_creation(filtered_data){
@@ -204,7 +204,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
     })
 
   let heat_map_layer = L.heatLayer(heatArray, {
-  radius: 50,
+  radius: 30,
   blur: 10  
   })
 
@@ -316,7 +316,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
   legend.onAdd = function(map) {
 
-    console.log(map)
+    // console.log(map)
 
   var div = L.DomUtil.create("div", "legend");
     div.innerHTML += "<h3>Price per m²</h3>";
@@ -348,6 +348,17 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
   legend.addTo(mymap);
 
+
+  d3.json("static/data/cdmx_municipios.geojson").then(shuju=>{
+
+    console.log(shuju)
+  L.geoJSON(shuju, {
+    color: "blue",
+    weight: 4,
+    fillColor: 'none',
+    }).addTo(mymap)
+  })
+
     }
 
 
@@ -366,6 +377,23 @@ d3.json("static/data/ML_departamentos_CDMX.json").then(shuju=>{
 
 })
 
+var another_map = L.map('testMAP').setView([19.310470960907647, -99.14773403421277], 11);
+
+L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+}).addTo(another_map);
+
+d3.json("static/data/cdmx_municipios.geojson").then(shuju=>{
+
+  console.log(shuju)
+L.geoJSON(shuju, {
+  color: "blue",
+  weight: 4,
+  fillColor: 'none',
+  }).addTo(another_map)
+
+
+})
 
 .catch(e=>{
     console.log(e)
