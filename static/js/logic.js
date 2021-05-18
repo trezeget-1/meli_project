@@ -239,7 +239,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
   var mymap = L.map(map_id_name, {
     center: [19.432773407864026, -99.13334959469503],
     zoom: 16,
-    layers: [outdoor_layer, apartmentLayer, apartment_heatLayer]
+    layers: [outdoor_layer, apartmentLayer]
   });
 
 
@@ -351,12 +351,12 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
   d3.json("static/data/cdmx_municipios.geojson").then(shuju=>{
 
-    console.log(shuju)
   L.geoJSON(shuju, {
     color: "blue",
     weight: 4,
     fillColor: 'none',
     }).addTo(mymap)
+
   })
 
     }
@@ -377,23 +377,35 @@ d3.json("static/data/ML_departamentos_CDMX.json").then(shuju=>{
 
 })
 
-var another_map = L.map('testMAP').setView([19.310470960907647, -99.14773403421277], 11);
+var final_map = L.map('map_analysis').setView([19.310470960907647, -99.14773403421277], 11);
 
 L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-}).addTo(another_map);
+}).addTo(final_map);
 
 d3.json("static/data/cdmx_municipios.geojson").then(shuju=>{
 
   console.log(shuju)
+
+  shuju.features.forEach(d=>{
+    console.log(d.properties.NOMGEO)
+  })
+  
 L.geoJSON(shuju, {
   color: "blue",
   weight: 4,
-  fillColor: 'none',
-  }).addTo(another_map)
+  fillColor: 'blue',
+  opacity: .2,
+    onEachFeature: function(feature, layer) {
+      layer.bindTooltip(`${feature.properties.NOMGEO}`, {permanent: true, direction:'center'});
+      layer.bindPopup(`<h4>Price: </h4>`)
+    }
+  })
+  .addTo(final_map)
 
 
 })
+
 
 .catch(e=>{
     console.log(e)
