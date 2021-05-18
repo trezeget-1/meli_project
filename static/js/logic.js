@@ -1,34 +1,31 @@
-var final_map = L.map('map_analysis').setView([19.310470960907647, -99.14773403421277], 11);
+// var final_map = L.map('map_analysis').setView([19.310470960907647, -99.14773403421277], 11);
 
-L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-}).addTo(final_map);
+// L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
+//   attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+// }).addTo(final_map);
 
-d3.json("static/data/cdmx_municipios.geojson").then(shuju=>{
+// d3.json("static/data/cdmx_municipios.geojson").then(shuju=>{
 
-  console.log(shuju)
+//   console.log(shuju)
 
-  shuju.features.forEach(d=>{
-    console.log(d.properties.NOMGEO)
-  })
+//   shuju.features.forEach(d=>{
+//     console.log(d.properties.NOMGEO)
+//   })
   
-L.geoJSON(shuju, {
-  color: "blue",
-  weight: 4,
-  fillColor: 'blue',
-  opacity: .2,
-    onEachFeature: function(feature, layer) {
-      layer.bindTooltip(`${feature.properties.NOMGEO}`, {permanent: true, direction:'center'});
-      layer.bindPopup(`<h4>Price: </h4>`)
-    }
-  })
-  .addTo(final_map)
+// L.geoJSON(shuju, {
+//   color: "blue",
+//   weight: 4,
+//   fillColor: 'blue',
+//   opacity: .2,
+//     onEachFeature: function(feature, layer) {
+//       layer.bindTooltip(`${feature.properties.NOMGEO}`, {permanent: true, direction:'center'});
+//       layer.bindPopup(`<h4>Price: </h4>`)
+//     }
+//   })
+//   .addTo(final_map)
 
 
-})
-
-
-
+// })
 
 function map_creation(shuju, map_id_name){
 

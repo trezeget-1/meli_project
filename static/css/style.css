@@ -16,6 +16,17 @@ html{
   display: block;
 }
 
+#viz1621361830685{
+    /* display: block;
+    margin-left: 5%;
+    margin-right: -5%;
+    width: 40%; */
+
+    margin: auto;
+    /* text-align: center; */
+    padding: 100px;
+}
+
 #Melimapid{
   width: 100px;
   height:100px;
