@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real State Analyzer</title>
+    <title>Real State in Mexico City</title>
 
     <!-- Leaflet CSS -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -47,13 +47,20 @@
 
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
-                <h1 class="display-5 fw-bold">Have you ever wondered how much is a m² in Mexico City?</h1>
+                <h1 class="display-1 fw-bold">Real State in Mexico City</h1>
+                <h1 class="display-5 fw-bold">April 2021</h1>
                 <br>
-                <p class="col-md-8 fs-4">Well, let me tell you, a lot, compared to the minimum salary in Mexico</p>
-                <p class="col-md-8 fs-4">Can you guess what is the proportion of houses compared with departments?</p>
+                <h1 class="display-10 fw-bold">According to Mercado Libre and Inmuebles 24</h1>
             </div>
             </div>
             
+
+              <div class="container">
+                <p class="lead col-md-11 fs-3 text-center ">If you were to look for a property to buy in Mexico City and you searched in Mercado Libre or Inmuebles 24 this is what you will find.</p>
+                <br>
+                <p class="lead col-md-11 fs-3 text-center">Unfortunately after cleaning the data for this project, it couldn't be added Milpa Alta District, as the number of results were very few and they had inconsistencies or seemed suspcious on the time of withdrawing the information. </p>
+            </div>
+
 
 
 <div class='tableauPlaceholder' id='viz1621446923758' style='position: center'>
@@ -75,7 +82,8 @@
         <param name='display_count' value='yes' />
         <param name='language' value='en' />
         <param name='filter' value='publish=yes' />
-    </object></div>                
+    </object>
+</div>                
     <script type='text/javascript'>                    
     var divElement = document.getElementById('viz1621446923758');                    
     var vizElement = divElement.getElementsByTagName('object')[0];                    
@@ -86,14 +94,11 @@
         vizElement.parentNode.insertBefore(scriptElement, vizElement);                
     </script>
 
-
-
         <div class="px-4 py-5 my-5 text-center">
             <h1 class="display-5 fw-bold">Now, give it a try!</h1>
             <br>
             <div class="col-lg-6 mx-auto">
-              <p class="lead mb-4">Below you can find the scrapped results for all the houses and appartments on sale on April 2021 in Mexico City, the vast majority of them are still on sale, compare how many different prices ranges can be on a same area.</p>
-              <p class="lead mb-4">Who knows? maybe you end up finding your dream <house class=""></house></p>
+              <p class="lead mb-4 fs-3">Below you can find the scrapped and cleaned results for all the houses and appartments on sale on April 2021 in Mexico City, the vast majority of them are still on sale, compare how many different prices ranges can be on a same area!</p>
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
               </div>
             </div>
@@ -102,8 +107,13 @@
             <div class="p-5 mb-4 bg-light rounded-3">
                 <div class="container-fluid py-5">
                   <h1 class="display-5 fw-bold">Inmuebles 24</h1>
-                  <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-                  <a href="https://www.inmuebles24.com/" target="_blank"><button class="btn btn-primary btn-lg" type="button">Visit Inmuebles 24's website</button></a>
+                  <br>
+                  <p class="col-md-8 fs-4">2,196 properties from Inmuebles 24 are shown on the map below!</p>
+                  <br>
+                        <a href="https://www.inmuebles24.com/" target="_blank">
+                        <button class="btn btn-primary btn-lg" type="button">Visit Inmuebles 24's website</button>
+
+                </a>
                 </div>
               </div>
 
@@ -119,7 +129,10 @@
         <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold">Mercado Libre</h1>
-            <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
+            <br>
+            <p class="col-md-8 fs-4">1,541 properties from Mercado Libre are shown below. </p>
+            <p class="col-md-8 fs-4">Try and look for the one you like!</p>
+            <br>
             <a href="https://www.mercadolibre.com.mx/inmuebles" target="_blank"><button class="btn btn-primary btn-lg" type="button">Visit Mercado Libre's website</button></a>
         </div>
         </div>
@@ -131,6 +144,11 @@
                 <div id="Melimapid"></div>
             </div>
             </div>
+
+
+
+            
+
 
         <!-- <script charset="utf-16" src="static/data/ML_departamento_en_venta_Del_valle.json"></script> -->
        <script charset="utf-16" src="static/data/ML_departamentos_CDMX.json"></script>
