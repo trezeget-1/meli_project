@@ -60,6 +60,22 @@ html{
     padding: 4em;
 }
 
+.marketing{
+  margin-left: 4%;
+}
+
+#second_insight{
+  font-size: 25px;
+}
+
+#third_insight{
+  font-size: 20px;
+}
+
+#contact_details{
+  font-size: 20px;
+}
+
 .resetzoom{
   width: 120px;
   height: 32px;

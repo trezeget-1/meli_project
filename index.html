@@ -25,6 +25,7 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- My CSS -->
         <link rel="stylesheet" type="text/css" href="static/css/style.css">
@@ -45,9 +46,9 @@
 
         <!-- THIS IS THE MAP FOR ANALYSIS -->
 
-        <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="p-5 mb-4 bg-primary bg-gradient rounded-3 text-light">
             <div class="container-fluid py-5">
-                <h1 class="display-1 fw-bold">Real State in Mexico City</h1>
+                <h1 class="display-1 fw-bold">Real Estate in Mexico City</h1>
                 <h1 class="display-5 fw-bold">April 2021</h1>
                 <br>
                 <h1 class="display-10 fw-bold">According to Mercado Libre and Inmuebles 24</h1>
@@ -56,9 +57,11 @@
             
 
               <div class="container">
-                <p class="lead col-md-11 fs-3 text-center ">If you were to look for a property to buy in Mexico City and you searched in Mercado Libre or Inmuebles 24 this is what you will find.</p>
+                <p class="lead col-md-11 fs-2 text-center ">If you were to look for a property to buy in Mexico City and you searched in Mercado Libre or Inmuebles 24's website, this is what you will find.</p>
                 <br>
-                <p class="lead col-md-11 fs-3 text-center">Unfortunately after cleaning the data for this project, it couldn't be added Milpa Alta District, as the number of results were very few and they had inconsistencies or seemed suspcious on the time of withdrawing the information. </p>
+                <p class="lead col-md-11 fs-2 text-center ">The following project was completed by analyzing 4,014 ads on Mercado Libre and Inmuebles 24 when looking for properties to buy in Mexico City.</p>
+                <br>
+                <p class="lead col-md-11 fs-4 text-center">**Note: Unfortunately after cleaning the data for this project, it couldn't be added "Milpa Alta" District, as the number of results were very few and they had inconsistencies or seemed suspcious on the time of withdrawing the information.** </p>
             </div>
 
 
@@ -94,11 +97,121 @@
         vizElement.parentNode.insertBefore(scriptElement, vizElement);                
     </script>
 
+<div class="container marketing row text-center">
+    <div class="col-md-12">
+        <h2 class="featurette-heading">1st key insight - <span class="text-muted">Perhaps you kind of knew it already...</span></h2>
+    </div>
+</div>
+
+<div class="container marketing row text-center">
+    <div class="col-md-6">
+      <div class="card shadow mb-4">
+        <div class="card-body p-5">
+            <h4 class="mb-4">The 5 most expensive districts to buy real state in Mexico City are: </h4>
+            <!-- Ordered list with custom style -->
+            <ul class="custom-numbers">
+                <li class="mb-2">Miguel Hidalgo</li>
+                <li class="mb-2">Cuajimalpa de Morelos</li>
+                <li class="mb-2">Álvaro Obregón</li>
+                <li class="mb-2">Cuauhtémoc </li>
+                <li class="mb-2">Benito Juárez</li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+          <div class="card-body p-5">
+              <h4 class="mb-4">The 5 LEAST expensive districts to buy real state in Mexico City are: </h4>
+              <!-- Ordered list with custom style -->
+              <ul class="custom-numbers">
+                  <li class="mb-2">Tláhuac</li>
+                  <li class="mb-2">Xochimilco</li>
+                  <li class="mb-2">Iztapalapa</li>
+                  <li class="mb-2">Venustiano Carranza </li>
+                  <li class="mb-2">Azcapotzalco</li>
+              </ul>
+          </div>
+      </div>
+  
+      </div>
+  
+      <hr class="featurette-divider"> 
+
+      <div class="container marketing row text-center">
+        <div class="col-md-12">
+            <h2 class="featurette-heading">2nd key insight - <span class="text-muted">Iztapala</span></h2>
+        </div>
+    </div>
+
+    <div class="row text-center align-middle">
+        <div class="col-md-5">
+          <p class="lead" id="second_insight">Theorically speaking, with more population, more scarce Real Estate is and as a result, more expensive is to buy a property. But this is wrong, In Mexico City, "Iztapala" is the district with the highest number of people in Mexico City but the Real Estate there is some of the cheapest in the city. Perhaps insecurity, lack of public services in part of the district and almost none big corporative districts are the reason for this.</p>
+        </div>
+        <div class="col-md-7">
+          <!-- <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg> -->
+  
+          <img src="https://cdn.forbes.com.mx/2020/06/IZTAPALAPA-DJI_0040-1024x576.jpg" class="img-fluid" alt="https://cdn.forbes.com.mx/2020/06/IZTAPALAPA-DJI_0040-1024x576.jpg">
+        </div>
+      </div>
+
+
+      <hr class="featurette-divider"> 
+
+      <div class="container marketing row text-center">
+        <div class="col-md-12">
+            <h2 class="featurette-heading">3rd key insight - <span class="text-muted">Less populated, more spacious, but more expensive per m2? </span></h2>
+        </div>
+    </div>
+
+    <div class="row text-center align-middle">
+        <div class="col-md-7">
+          <!-- <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg> -->
+  
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/A_view_of_Santa_Fe.jpg/1920px-A_view_of_Santa_Fe.jpg" class="img-fluid" alt="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/A_view_of_Santa_Fe.jpg/1920px-A_view_of_Santa_Fe.jpg">
+        </div>
+
+        <div class="col-md-5">
+            <p class="lead" id="third_insight">In other countries, leaving the city to the suburbs or somewhere far from the City Center is a decision in which you expect to increase your living space and find cheaper deals for Real Estate, in Mexico city there are some districts that eventhough are some of the least populated and consequently the size of properties are some of the biggest, the price per m2 is the most expensive of all. These districts are: "Cuajimalpa de Morelos", "Miguel Hidalgo" and "Benito Juárez". Perhaps being closer to business districts has advantages to them. </p>
+          </div>
+  
+      </div>
+
+
+      <hr class="featurette-divider"> 
+
+      <div class="container marketing row text-center">
+        <div class="col-md-12">
+            <h2 class="featurette-heading">4th key insight - <span class="text-muted">Looking for bargains of Real Estate online? </span></h2>
+        </div>
+    </div>
+
+    <div class="row text-center align-middle">
+
+        <div class="col-md-12">
+            <p class="lead" id="third_insight">If you are looking to buy a property in Mexico City, but you want to search for the Real Estate bargains, online might not be the solution for you, as many of the properties advertised on Mercado Libre and Inmuebles 24 are located on the most expensive districts of the city. So if you are confident and love strolls, perhaps looking for deals on a more traditional way will be a better choice for you </p>
+          </div>
+
+          <div class="col-md-12">
+            <!-- <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg> -->
+    
+            <img src="https://www.bienesonline.com/peru/photos/se-vende-casa-de-02-pisos-tacna-31519605298.jpg" class="img-fluid" alt="https://www.bienesonline.com/peru/photos/se-vende-casa-de-02-pisos-tacna-31519605298.jpg">
+          </div>
+   
+      </div>
+
+
+
+
+  </div>
+
         <div class="px-4 py-5 my-5 text-center">
             <h1 class="display-5 fw-bold">Now, give it a try!</h1>
             <br>
             <div class="col-lg-6 mx-auto">
-              <p class="lead mb-4 fs-3">Below you can find the scrapped and cleaned results for all the houses and appartments on sale on April 2021 in Mexico City, the vast majority of them are still on sale, compare how many different prices ranges can be on a same area!</p>
+              <p class="lead mb-4 fs-3">Below you can find the scrapped and cleaned results for all the houses and appartments on sale on April 2021 in Mexico City in Mercado Libre and Inmuebles 24, the vast majority of them are still on sale, compare how many different prices ranges can be on a same area!</p>
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
               </div>
             </div>
@@ -108,7 +221,8 @@
                 <div class="container-fluid py-5">
                   <h1 class="display-5 fw-bold">Inmuebles 24</h1>
                   <br>
-                  <p class="col-md-8 fs-4">2,196 properties from Inmuebles 24 are shown on the map below!</p>
+                  <p class="col-md-8 fs-4">2,473 properties from Inmuebles 24 are shown on the map below. </p>
+                  <p class="col-md-8 fs-4">Each dot represents a property, play with the map to view houses or appartments and click on any circle to know more details about that property </p>
                   <br>
                         <a href="https://www.inmuebles24.com/" target="_blank">
                         <button class="btn btn-primary btn-lg" type="button">Visit Inmuebles 24's website</button>
@@ -147,7 +261,61 @@
 
 
 
-            
+            <div class="px-4 py-5 my-5 text-center">
+                <h1 class="display-5 fw-bold">Contact me</h1>
+                <br>
+                <div class="col-lg-6 mx-auto">
+                  <p class="lead mb-4 fs-3">If you liked what you saw or you see any mistake on the data, give me shout!</p>
+                  <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                  </div>
+                </div>
+              </div>
+
+
+            <div class="container bg-info bg-gradient">    
+                <!-- <div class="p-5 mb-4 bg-info rounded-3 bg-gradient"> -->
+                  <div class="row">
+                      <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4 ">
+                        <h4 class="display-5 text-center "><strong>Jesús Romo</strong></h4>
+                        <br>
+
+                          <img src="https://media-exp1.licdn.com/dms/image/C5603AQHRWsc_9uU6EA/profile-displayphoto-shrink_800_800/0/1562488915570?e=1626912000&v=beta&t=OO0q5pyfh98x5qONvi_FPEis1Q5pG4M04O74K5sfsCY" alt="stack photo" class="img img-fluid mx-auto">
+                      </div>
+                      <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
+
+                        <div class="card shadow mb-4 ">
+                            <div class="card-body p-5">
+                                <!-- List with icons -->
+                                <h4 class="mb-4">Contact Details</h4>
+                                <ul class="list-unstyled list pl-5">
+                                    <i class="bi bi-envelope"></i>                                
+                                    <li class="mb-3 d-flex align-items-center" id="contact_details"><i class="fa fa-flask mr-3 text-primary"></i>jesusdanielromo@gmail.com</li>
+                                    
+                                    <i class="bi bi-linkedin"></i>                        
+                                    <li class="mb-3 d-flex align-items-center" id="contact_details"><i class="fa fa-hourglass-end mr-3 text-primary"></i>https://www.linkedin.com/in/jesusdanielromo</li>
+                                    
+                                    <img src="https://img.icons8.com/ios-filled/24/000000/line-me.png"/>
+                                    <li class="mb-3 d-flex align-items-center" id="contact_details"><i class="fa fa-rocket mr-3 text-primary"></i>jesusdaniel1</li>
+
+                                    <i class="bi bi-skype"></i>
+                                    <li class="mb-3 d-flex align-items-center" id="contact_details"><i class="fa fa-inbox mr-3 text-primary"></i>jesusdanielromo@gmail.com</li>
+
+                                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.502 19.525c1.524-1.105 2.498-2.738 2.498-4.554 0-3.326-3.237-6.023-7.229-6.023s-7.229 2.697-7.229 6.023c0 3.327 3.237 6.024 7.229 6.024.825 0 1.621-.117 2.36-.33l.212-.032c.139 0 .265.043.384.111l1.583.914.139.045c.133 0 .241-.108.241-.241l-.039-.176-.326-1.215-.025-.154c0-.162.08-.305.202-.392zm-12.827-17.228c-4.791 0-8.675 3.236-8.675 7.229 0 2.178 1.168 4.139 2.997 5.464.147.104.243.276.243.471l-.03.184-.391 1.458-.047.211c0 .16.13.29.289.29l.168-.054 1.899-1.097c.142-.082.293-.133.46-.133l.255.038c.886.255 1.842.397 2.832.397l.476-.012c-.188-.564-.291-1.158-.291-1.771 0-3.641 3.542-6.593 7.911-6.593l.471.012c-.653-3.453-4.24-6.094-8.567-6.094zm5.686 11.711c-.532 0-.963-.432-.963-.964 0-.533.431-.964.963-.964.533 0 .964.431.964.964 0 .532-.431.964-.964.964zm4.82 0c-.533 0-.964-.432-.964-.964 0-.533.431-.964.964-.964.532 0 .963.431.963.964 0 .532-.431.964-.963.964zm-13.398-5.639c-.639 0-1.156-.518-1.156-1.156 0-.639.517-1.157 1.156-1.157.639 0 1.157.518 1.157 1.157 0 .638-.518 1.156-1.157 1.156zm5.783 0c-.639 0-1.156-.518-1.156-1.156 0-.639.517-1.157 1.156-1.157.639 0 1.157.518 1.157 1.157 0 .638-.518 1.156-1.157 1.156z"/></svg>
+                                    <li class="mb-3 d-flex align-items-center" id="contact_details"><i class="fa fa-rocket mr-3 text-primary"></i>jesusdanielromo</li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+                      </div>
+                  </div>
+                <!-- </div> -->
+            </div>
+
+
+           
 
 
         <!-- <script charset="utf-16" src="static/data/ML_departamento_en_venta_Del_valle.json"></script> -->
