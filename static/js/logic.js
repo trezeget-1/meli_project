@@ -64,7 +64,7 @@ let Jawg_Dark = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.p
 	minZoom: 0,
 	// maxZoom: 22,
 	subdomains: 'abcd',
-	accessToken: jawg_api_key
+	accessToken: "5LTToE3MPqdq3eQTLrjMOhKreoqPQrQ870okYmxPh2m9qmgC7vIAyDdX2V2fn9G2"
 });
 
 
