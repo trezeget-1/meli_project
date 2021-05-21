@@ -42,7 +42,7 @@ d3.json("/api_shuju_inmuebles24").then(shuju =>{
 function map_creation(shuju, map_id_name){
 
 // Define variables for our tile layers
-let satellite_layer = L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${API_KEY}`, {
+let satellite_layer = L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token="pk.eyJ1IjoidHJlemVnZXQxIiwiYSI6ImNrbjZ1eWQ2ZTBhdDcyd296MzZkd2lvazAifQ.hi8BW6xMvGcxevSPIwi09w", {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox/satellite-v9',
     accessToken: 'your.mapbox.access.token'
@@ -407,14 +407,14 @@ var formatter = new Intl.NumberFormat('en-MX', {
 d3.json("static/data/inmuebles_24_CDMX.json").then(shuju=>{
   
   map_id_name = 'mapid'
-  map_creation(shuju, map_id_name, API_KEY)
+  map_creation(shuju, map_id_name)
 
 })
 
 d3.json("static/data/ML_departamentos_CDMX.json").then(shuju=>{
 
   map_id_name = 'Melimapid'
-  map_creation(shuju, map_id_name, API_KEY)
+  map_creation(shuju, map_id_name)
 
 })
 
