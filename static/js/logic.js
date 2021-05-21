@@ -59,7 +59,7 @@ let street_map = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y
 	attribution: '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
-let Jawg_Dark = L.tileLayer(`https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token=${jawg_api_key}`, {
+let Jawg_Dark = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token="5LTToE3MPqdq3eQTLrjMOhKreoqPQrQ870okYmxPh2m9qmgC7vIAyDdX2V2fn9G2"', {
 	attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	minZoom: 0,
 	// maxZoom: 22,
