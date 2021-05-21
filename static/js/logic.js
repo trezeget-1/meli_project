@@ -27,6 +27,13 @@
 
 // })
 
+d3.json("/api_shuju_meli").then(shuju =>{
+  console.log(shuju)
+})
+
+
+
+
 function map_creation(shuju, map_id_name){
 
 // Define variables for our tile layers
