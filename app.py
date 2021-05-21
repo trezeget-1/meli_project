@@ -1,13 +1,15 @@
 from flask import Flask, render_template, jsonify
 import pandas as pd
 from sqlalchemy import create_engine
+import os
 
 app = Flask(__name__)
 
-API_KEY = os.environ['API_KEY']
+
 
 @app.route("/")
 def index():
+    API_KEY = os.environ.get('API_KEY')
     return render_template("index.html")
 
 @app.route("/api_shuju_meli")
