@@ -4,6 +4,8 @@ from sqlalchemy import create_engine
 
 app = Flask(__name__)
 
+API_KEY = os.environ['API_KEY']
+
 @app.route("/")
 def index():
     return render_template("index.html")
