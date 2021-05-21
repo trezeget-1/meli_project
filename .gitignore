@@ -5,6 +5,7 @@ csv_files/**
 bootcamp/**
 REFERENCE_ONLY/**
 .vscode/**
+properties/**
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
