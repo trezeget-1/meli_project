@@ -407,14 +407,14 @@ var formatter = new Intl.NumberFormat('en-MX', {
 d3.json("static/data/inmuebles_24_CDMX.json").then(shuju=>{
   
   map_id_name = 'mapid'
-  map_creation(shuju, map_id_name)
+  map_creation(shuju, map_id_name, API_KEY)
 
 })
 
 d3.json("static/data/ML_departamentos_CDMX.json").then(shuju=>{
 
   map_id_name = 'Melimapid'
-  map_creation(shuju, map_id_name)
+  map_creation(shuju, map_id_name, API_KEY)
 
 })
 
