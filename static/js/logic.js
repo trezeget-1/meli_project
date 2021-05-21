@@ -32,6 +32,11 @@ d3.json("/api_shuju_meli").then(shuju =>{
 })
 
 
+d3.json("/api_shuju_inmuebles24").then(shuju =>{
+  console.log(shuju)
+})
+
+
 
 
 function map_creation(shuju, map_id_name){
