@@ -89,7 +89,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
   shuju.forEach( d=> {    
     studied_array.push(
-      d['Precio por m2']
+      d['price_per_m2']
       )      
   }) 
 
@@ -97,13 +97,6 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
   let quantiles_ranges = []
   for (let i=1, n=amount_of_shares_desired; i<n; i++){
-
-    // if (i ===1 ){
-    //   quantiles_ranges.push((i/7)/2)
-    //   quantiles_ranges.push(i/7)
-    // }else{
-    //   quantiles_ranges.push(i/7)
-    // }
 
     quantiles_ranges.push(i/7)
 
@@ -160,8 +153,6 @@ var formatter = new Intl.NumberFormat('en-MX', {
     formatted_price_per_m2_quantiles.push(formatter.format(d))
   })
 
-  // console.log(formatted_price_per_m2_quantiles)
-
   let color = ""
 
   function fillColor(price_per_m2) {
@@ -187,9 +178,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
   // ------------------------------ HOUSES LIST --------------------------------
 
 
-  let filtered_data = shuju.filter(d => d['Tipo de propiedad'] === 'Casa')
-  // console.log(filtered_data)
-
+  let filtered_data = shuju.filter(d => d['property_type'] === 'Casa')
 
   function markers_creation(filtered_data){
 
@@ -199,9 +188,9 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
 
     properties_list.push(
-      [filtered_data[i]['Latitud'], filtered_data[i]['Longitud'],
-      filtered_data[i]['Precio por m2'], filtered_data[i]['Link de la publicación'],
-      filtered_data[i]['Número de m2'], filtered_data[i]['Precio']]
+      [filtered_data[i]['latitude'], filtered_data[i]['longitude'],
+      filtered_data[i]['price_per_m2'], filtered_data[i]['permalink'],
+      filtered_data[i]['size'], filtered_data[i]['price']]
     )
     
   }
@@ -241,7 +230,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
   filtered_data.forEach(d=>{
         heatArray.push(
-            [d.Latitud, d.Longitud]
+            [d.latitude, d.longitude]
         )
     })
 
@@ -265,7 +254,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
   // // ------------------------------ APARTMENTS LIST --------------------------------
 
-  filtered_data = shuju.filter(d => d['Tipo de propiedad'] === 'Departamento')
+  filtered_data = shuju.filter(d => d['property_type'] === 'Departamento')
 
   let apartmentLayer = L.layerGroup(markers_creation(filtered_data));
 
@@ -315,7 +304,7 @@ var formatter = new Intl.NumberFormat('en-MX', {
   shuju.forEach( d=> {
     
     studied_array.push(
-      d['Número de m2']
+      d['size']
       )
       
   })
@@ -357,8 +346,6 @@ var formatter = new Intl.NumberFormat('en-MX', {
 
 
   legend.onAdd = function(map) {
-
-    // console.log(map)
 
   var div = L.DomUtil.create("div", "legend");
     div.innerHTML += "<h3>Price per m²</h3>";
@@ -404,15 +391,14 @@ var formatter = new Intl.NumberFormat('en-MX', {
     }
 
 
-// d3.json("static/data/ML_departamentos_CDMX.json").then(data=>{
-d3.json("static/data/inmuebles_24_CDMX.json").then(shuju=>{
+d3.json("/api_shuju_inmuebles24").then(shuju=>{
   
   map_id_name = 'mapid'
   map_creation(shuju, map_id_name)
 
 })
 
-d3.json("static/data/ML_departamentos_CDMX.json").then(shuju=>{
+d3.json("/api_shuju_meli").then(shuju=>{
 
   map_id_name = 'Melimapid'
   map_creation(shuju, map_id_name)
