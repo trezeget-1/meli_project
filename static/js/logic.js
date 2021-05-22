@@ -1,44 +1,6 @@
-// var final_map = L.map('map_analysis').setView([19.310470960907647, -99.14773403421277], 11);
-
-// L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
-//   attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-// }).addTo(final_map);
-
-// d3.json("static/data/cdmx_municipios.geojson").then(shuju=>{
-
-//   console.log(shuju)
-
-//   shuju.features.forEach(d=>{
-//     console.log(d.properties.NOMGEO)
-//   })
-  
-// L.geoJSON(shuju, {
-//   color: "blue",
-//   weight: 4,
-//   fillColor: 'blue',
-//   opacity: .2,
-//     onEachFeature: function(feature, layer) {
-//       layer.bindTooltip(`${feature.properties.NOMGEO}`, {permanent: true, direction:'center'});
-//       layer.bindPopup(`<h4>Price: </h4>`)
-//     }
-//   })
-//   .addTo(final_map)
-
-
-// })
-
-d3.json("/api_shuju_meli").then(shuju =>{
-  console.log(shuju)
-})
-
-
-d3.json("/api_shuju_inmuebles24").then(shuju =>{
-  console.log(shuju)
-})
-
-
 // Raw JavaScript
 var geocode = JSON.parse(document.getElementById("mydivg").dataset.geocode);
+var geocode_ja = JSON.parse(document.getElementById("mydivgja").dataset.geocode2);
 
 function map_creation(shuju, map_id_name){
 
@@ -60,12 +22,12 @@ let street_map = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y
 	attribution: '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
-let Jawg_Dark = L.tileLayer('https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token="5LTToE3MPqdq3eQTLrjMOhKreoqPQrQ870okYmxPh2m9qmgC7vIAyDdX2V2fn9G2"', {
+let Jawg_Dark = L.tileLayer(`https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token=${geocode_ja}`, {
 	attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	minZoom: 0,
 	// maxZoom: 22,
 	subdomains: 'abcd',
-	accessToken: "5LTToE3MPqdq3eQTLrjMOhKreoqPQrQ870okYmxPh2m9qmgC7vIAyDdX2V2fn9G2"
+	accessToken: geocode_ja
 });
 
 
