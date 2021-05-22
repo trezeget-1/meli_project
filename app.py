@@ -16,7 +16,7 @@ def api_meli():
     connection_string = os.environ.get('DATABASE_URL', '')
 
     ### Create database connection    
-    engine = create_engine(connection_string, encoding="utf16")
+    engine = create_engine(connection_string)
     data = pd.read_sql("select * from properties", engine)
 
     return(
@@ -33,7 +33,7 @@ def api_inmuebles24():
     connection_string = os.environ.get('DATABASE_URL', '')
 
     ### Create database connection
-    engine = create_engine(connection_string, encoding="utf16")
+    engine = create_engine(connection_string)
     data = pd.read_sql("select * from properties", engine)
 
     return(
