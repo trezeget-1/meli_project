@@ -13,7 +13,7 @@ def index():
 @app.route("/api_shuju_meli")
 def api_meli():
 
-    connection_string = os.environ.get('DATABASE_URL', '')
+    connection_string = os.environ.get('DATABASE_URL').replace("://", "ql://", 1)
 
     ### Create database connection    
     engine = create_engine(connection_string)
@@ -30,7 +30,7 @@ def api_meli():
 @app.route("/api_shuju_inmuebles24")
 def api_inmuebles24():
 
-    connection_string = os.environ.get('DATABASE_URL', '')
+    connection_string = os.environ.get('DATABASE_URL').replace("://", "ql://", 1)
 
     ### Create database connection
     engine = create_engine(connection_string)
