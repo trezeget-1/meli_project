@@ -1,0 +1,31 @@
+Ciudad,Precio,Precio por m2,Número de m2,type_of_property
+Alvaro Obregón,6680888.0,47771.0,136.0,apartments
+Alvaro Obregón,14203529.0,33521.0,405.0,houses
+Azcapotzalco,2053079.0,30655.0,70.0,apartments
+Azcapotzalco,2192723.0,8903.0,291.0,houses
+Benito Juárez,4599522.0,43049.0,109.0,apartments
+Benito Juárez,5607951.0,29095.0,252.0,houses
+Coyoacán,4238809.0,35109.0,116.0,apartments
+Coyoacán,6919520.0,24013.0,285.0,houses
+Cuajimalpa de Morelos,10035101.0,52628.0,181.0,apartments
+Cuajimalpa de Morelos,14621021.0,32909.0,450.0,houses
+Cuauhtémoc,4530508.0,47340.0,93.0,apartments
+Cuauhtémoc,8390498.0,32627.0,283.0,houses
+Gustavo A. Madero,2517163.0,31338.0,81.0,apartments
+Gustavo A. Madero,3933335.0,14489.0,270.0,houses
+Iztacalco,1615384.0,25932.0,64.0,apartments
+Iztacalco,3831458.0,17180.0,209.0,houses
+Iztapalapa,3125404.0,13942.0,211.0,houses
+Iztapalapa,1454809.0,21088.0,69.0,apartments
+La Magdalena Contreras,7715134.0,42351.0,181.0,apartments
+La Magdalena Contreras,11444956.0,27425.0,431.0,houses
+Miguel Hidalgo,24352540.0,49796.0,495.0,houses
+Miguel Hidalgo,13264794.0,72527.0,166.0,apartments
+Tlalpan,7263512.0,22920.0,330.0,houses
+Tlalpan,6382549.0,41341.0,136.0,apartments
+Tláhuac,2400000.0,8800.0,275.0,houses
+Tláhuac,1843568.0,17442.0,90.0,apartments
+Venustiano Carranza,3110057.0,11412.0,248.0,houses
+Venustiano Carranza,1390988.0,21220.0,66.0,apartments
+Xochimilco,2356833.0,29446.0,81.0,apartments
+Xochimilco,4127044.0,15624.0,325.0,houses
