@@ -9,8 +9,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    API_KEY = os.environ.get('API_KEY')
-    return render_template("index.html", API_KEY=API_KEY)
+    unknown_id = os.environ.get('API_KEY')
+    return render_template("index.html", unknown_id=unknown_id)
 
 @app.route("/api_shuju_meli")
 def api_meli():

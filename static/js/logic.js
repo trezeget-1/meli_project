@@ -37,11 +37,13 @@ d3.json("/api_shuju_inmuebles24").then(shuju =>{
 })
 
 
+// Raw JavaScript
+var geocode = JSON.parse(document.getElementById("mydivg").dataset.geocode);
 
 function map_creation(shuju, map_id_name){
 
 // Define variables for our tile layers
-let satellite_layer = L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${API_KEY}`, {
+let satellite_layer = L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${geocode}`, {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox/satellite-v9',
     accessToken: 'your.mapbox.access.token'
