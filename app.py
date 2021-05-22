@@ -20,12 +20,12 @@ def api_meli():
     data = pd.read_sql("select * from properties", engine)
 
     return(
-    data
-    .loc[data['source_of_info'] == 'mercado_libre']
-    .reset_index()
-    .drop(['index'], inplace=False, axis=1)
-    .to_json(force_ascii = True, orient="records")
-)
+                data
+                .loc[data['source_of_info'] == 'mercado_libre']
+                .reset_index()
+                .drop(['index'], inplace=False, axis=1)
+                .to_json(force_ascii = True, orient="records")
+            )
 
 @app.route("/api_shuju_inmuebles24")
 def api_inmuebles24():
@@ -37,12 +37,12 @@ def api_inmuebles24():
     data = pd.read_sql("select * from properties", engine)
 
     return(
-    data
-    .loc[data['source_of_info'] == 'Inmuebles 24']
-    .reset_index()
-    .drop(['index'], inplace=False, axis=1)
-    .to_json(force_ascii = True, orient="records")
-)
+                data
+                .loc[data['source_of_info'] == 'Inmuebles 24']
+                .reset_index()
+                .drop(['index'], inplace=False, axis=1)
+                .to_json(force_ascii = True, orient="records")
+            )
 
 
 
