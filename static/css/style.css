@@ -9,12 +9,26 @@ html{
   /* margin-left:5%;
   margin-right:150px; */
 
-  width: 100px;
-  height:100px;
+  /* width: 100px;
+  height:100px; */
   min-height: 100%;
   min-width: 100%;
   display: block;
 }
+
+#Melimapid{
+  /* width: 100px; */
+  height:100px;
+  min-height: 100%;
+  /* min-height: 50%; */
+  min-width: 100%;
+  /* display: block; */
+}
+
+#map-holder{
+  height: 90%;
+}
+
 
 #viz1621446923758{
     /* display: block;
@@ -27,13 +41,7 @@ html{
     padding: 100px;
 }
 
-#Melimapid{
-  width: 100px;
-  height:100px;
-  min-height: 100%;
-  min-width: 100%;
-  display: block;
-}
+
 
 #map_analysis{
   width: 100px;
@@ -43,9 +51,7 @@ html{
   display: block;
 }
 
-#map-holder{
-  height: 100%;
-}
+
 
 .fill
 {
@@ -64,14 +70,6 @@ html{
   margin-left: 4%;
 }
 
-#second_insight{
-  font-size: 25px;
-}
-
-#third_insight{
-  font-size: 20px;
-}
-
 #contact_details{
   font-size: 20px;
 }
@@ -83,12 +81,6 @@ html{
   /* color: black; */
   font-size: 22px;
 }
-/* #heat_mapid{
-  height: 80%;
-  width: 80%;
-  margin-left:8%; 
-} */
-
 
 /*Legend specific*/
 .legend {
@@ -101,12 +93,12 @@ html{
   line-height: 24px;
   color: #555;
 }
-.legend h4 {
+/* .legend h4 {
   text-align: center;
   font-size: 16px;
   margin: 2px 12px 8px;
   color: #777;
-}
+} */
 
 .legend span {
   position: relative;
@@ -117,8 +109,8 @@ html{
   width: 18px;
   height: 18px;
   float: left;
-  margin: 0 8px 0 0;
-  opacity: 0.7;
+  /* margin: 0 8px 0 0; */
+  /* opacity: 0.7; */
 }
 
 .legend i.icon {
